@@ -21,13 +21,27 @@ $(".btn").click(function() {
     userClickedPattern.push(userChosenColour);
     playSound(userChosenColour);
     animatePress(userChosenColour);
+    checkAnswer(userClickedPattern.length-1);
 });
 
+function checkAnswer(currentLevel) {
+
+    if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+        console.log("success");
+        if (userClickedPattern.length === gamePattern.length){
+            setTimeout(function () {
+                nextSequence();
+            }, 1000);
+        }
+    }
+}
 
 function nextSequence() {
 
+    userClickedPattern = [];
+
     level++;
-    
+
     var randomNumber = Math.floor(Math.random()* 4);
     var randomChosenColour = buttonColours[randomNumber];
     gamePattern.push(randomChosenColour)
